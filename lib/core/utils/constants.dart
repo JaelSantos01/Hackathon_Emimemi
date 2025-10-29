@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String url = "http://localhost:8000/api";
+  static const String url = "http://localhost:8000";
   static const String loginPoint = "http://localhost:8000/api/auth/login";
   static const String registerPoint = "http://localhost:8000/api/auth/register";
   static const Duration timeout = Duration(seconds: 10);
