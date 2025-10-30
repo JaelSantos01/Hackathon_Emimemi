@@ -5,6 +5,8 @@ const authController = require('../controllers/auth.controller');
 
 router.post('/', userController.createUser);
 
+router.put('/profile/wallet', userController.updateMyWallet);
+
 router.post('/login', authController.login);
 
 router.get('/', userController.getAllUsers);

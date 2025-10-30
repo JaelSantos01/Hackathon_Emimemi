@@ -1,8 +1,17 @@
 const { Campo, Hectarea } = require('../models'); 
 
+// ...
 exports.createCampo = async (req, res) => {
     try {
-        const newCampo = await Campo.create(req.body);
+        const { nombre, ubicacionMunicipio, UserId } = req.body;
+        if (!UserId) {
+            return res.status(400).json({ message: "Se requiere un UserId para crear un campo." });
+        }
+        const newCampo = await Campo.create({
+            nombre,
+            ubicacionMunicipio,
+            UserId 
+        });
         res.status(201).json(newCampo);
     } catch (error) {
         res.status(400).json({ message: error.message });

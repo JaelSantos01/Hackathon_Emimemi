@@ -1,6 +1,35 @@
 const { User } = require('../models');
 const bcrypt = require("bcrypt");
 
+exports.updateMyWallet = async (req, res) => {
+    try {
+        const userId = req.user.id; 
+        
+        if (!userId) {
+             return res.status(401).json({ message: 'No autenticado.' });
+        }
+
+        const { stellarWalletAddress } = req.body;
+
+        if (!stellarWalletAddress) {
+            return res.status(400).json({ message: 'stellarWalletAddress no proporcionado.' });
+        }
+
+        const [updatedRows] = await User.update(
+            { stellarWalletAddress: stellarWalletAddress }, 
+            { where: { id: userId } }
+        );
+
+        if (updatedRows === 0) {
+            return res.status(404).json({ message: 'Usuario no encontrado.' });
+        }
+
+        res.status(200).json({ message: 'Billetera actualizada exitosamente.' });
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
 
 exports.createUser = async (req, res) => {
     try {

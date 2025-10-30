@@ -30,8 +30,8 @@ db.sequelize.authenticate()
     .then(() => {
         console.log('Conexión a MySQL establecida exitosamente.');
 
-        //return db.sequelize.sync();
-        return db.sequelize.sync({ force: true }); // Usar con precaución: elimina y recrea tablas
+        return db.sequelize.sync();
+        //return db.sequelize.sync({ force: true }); // Usar con precaución: elimina y recrea tablas
     })
     .then(() => {
         console.log('Tablas sincronizadas.');

@@ -17,7 +17,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
             
+        },
+        stellarWalletAddress: {
+            type: DataTypes.STRING,
+            allowNull: true,  
+            unique: true,     
+            validate: {
+                is: /^G[A-Z0-9]{55}$/
+            }
         }
+        
     });
 
     return User;

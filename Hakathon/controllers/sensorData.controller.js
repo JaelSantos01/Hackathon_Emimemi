@@ -1,13 +1,39 @@
-const { SensorData, Hectarea } = require('../models');
+const { SensorData, Hectarea, Campo, User } = require('../models');
+const sorobanService = require('../service/soroban.service');
 
-// [C]REATE
+
 exports.createSensorData = async (req, res) => {
     try {
         const { sensorId, co2, humidity, luminosity, HectareaId } = req.body;
 
-        const hectarea = await Hectarea.findByPk(HectareaId);
+        let userWallet;
+        let hectarea;
+        try {
+            hectarea = await Hectarea.findByPk(HectareaId, {
+                include: {
+                    model: Campo,
+                    include: {
+                        model: User,
+                        attributes: ['stellarWalletAddress']
+                    }
+                }
+            });
+        } catch (findError) {
+            console.error("Error en la consulta de propietario:", findError);
+            return res.status(500).json({ message: "Error al buscar al propietario." });
+        }
+
         if (!hectarea) {
-             return res.status(404).json({ message: 'La HectareaId proporcionada no existe.' });
+            return res.status(404).json({ message: 'La HectareaId proporcionada no existe.' });
+        }
+        if (!hectarea.Campo || !hectarea.Campo.User) {
+            return res.status(404).send({ message: "No se encontró un Campo o Usuario asociado a esta Hectárea." });
+        }
+        userWallet = hectarea.Campo.User.stellarWalletAddress;
+        if (!userWallet) {
+            return res.status(400).send({
+                message: "El propietario de esta hectárea aún no ha configurado una billetera de Stellar en su perfil."
+            });
         }
 
         const newData = await SensorData.create({
@@ -15,9 +41,27 @@ exports.createSensorData = async (req, res) => {
             co2,
             humidity,
             luminosity,
-            HectareaId 
+            HectareaId
         });
-        res.status(201).json(newData);
+
+        try {
+            const co2AsInt = Math.floor(co2);
+            await sorobanService.callMintCo2Tokens(userWallet, co2AsInt);
+
+            res.status(201).json({
+                message: "Datos guardados en BD y tokens acuñados en Blockchain.",
+                data: newData
+            });
+
+        } catch (contractError) {
+            console.error("Error en contrato de Soroban:", contractError);
+            res.status(500).json({
+                message: "Datos guardados en BD, pero falló la acuñación de tokens.",
+                dbData: newData,
+                contractError: contractError.message
+            });
+        }
+
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -34,7 +78,7 @@ exports.getAllSensorData = async (req, res) => {
         const data = await SensorData.findAll({
             where: whereClause,
             order: [['createdAt', 'DESC']],
-            include: [Hectarea] 
+            include: [Hectarea]
         });
         res.status(200).json(data);
     } catch (error) {
@@ -59,7 +103,7 @@ exports.updateSensorData = async (req, res) => {
             where: { id: req.params.id }
         });
         if (updated === 0) return res.status(404).json({ message: 'Lectura no encontrada' });
-        
+
         const updatedData = await SensorData.findByPk(req.params.id);
         res.status(200).json(updatedData);
     } catch (error) {
