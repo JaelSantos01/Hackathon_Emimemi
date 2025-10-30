@@ -13,6 +13,7 @@ dependencies:
   dio: ^5.9.0
   shared_preferences: ^2.5.3
   provider: ^6.1.5+1
+  fl_chart: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -22,9 +23,9 @@ dev_dependencies:
 
 flutter_icons:
   android: true
-  image_path: "assets/logo.jpg"
+  image_path: "assets/logo_oficial.png"
 
 flutter:
   uses-material-design: true
   assets:
-    - assets\logo.jpg
+    - assets\logo_oficial.png

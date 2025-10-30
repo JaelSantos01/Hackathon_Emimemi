@@ -20,12 +20,8 @@ class HomeScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black87,
-            title: const Text("Inicio",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-            ),
+            backgroundColor: Color.fromRGBO(59, 96, 71, 1.0),
+            title: const Text("Inicio", style: TextStyle(color: Colors.white)),
             actions: [
               IconButton(
                 icon: const Icon(Icons.logout, color: Colors.white),
@@ -35,7 +31,6 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-
 
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -47,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                   height: 60,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Color.fromRGBO(86, 110, 61, 1.0),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Text(
@@ -61,16 +56,16 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Expanded(
-                  child:
-                      CardCarousel(), // ahora ocupa todo el espacio disponible
+                Expanded(child: 
+                CardCarousel()
+                
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green[800],
+                      backgroundColor: Color.fromRGBO(59, 96, 71, 1.0),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

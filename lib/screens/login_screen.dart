@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-          Container(color: const Color.fromRGBO(38, 116, 140, 100)),
+          Container(color: const Color.fromRGBO(86, 110, 61, 1.0)),
 
           SafeArea(
             child: SingleChildScrollView(
@@ -52,13 +52,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 37, 83, 2),
+                                  color: Color.fromRGBO(139, 90, 43, 1.0),
                                 ),
                               ),
                               const SizedBox(height: 20),
                               const CircleAvatar(
                                 radius: 28,
-                                backgroundColor: Color.fromARGB(255, 37, 83, 2),
+                                backgroundColor: Color.fromRGBO(139, 90, 43, 1.0),
                                 child: Icon(Icons.compost, color: Colors.white),
                               ),
                               const SizedBox(width: 12),
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 37, 83, 2),
+                                  color: Color.fromRGBO(139, 90, 43, 1.0),
                                 ),
                               ),
                             ],
@@ -133,12 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 50,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(
-                                255,
-                                15,
-                                83,
-                                39,
-                              ),
+                              backgroundColor: const Color.fromRGBO(139, 90, 43, 1.0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -194,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: const Text(
                                     'Regístrate',
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 16, 234, 67),
+                                      color: Color.fromRGBO(139, 90, 43, 1.0),
                                     ),
                                   ),
                                 ),
